@@ -1,8 +1,19 @@
---[[
-  Note: This is just a concept for now. It doesn't work. At all.
-]]
-require("ao")
-require("bit")
+local ao = require("ao")
+
+local numeric_version = string.gsub(_VERSION, "^%D+", "")
+if tonumber(numeric_version) < 5.2 then
+  _G.bit = require 'bit'  -- LuaBitOp http://bitop.luajit.org/api.html
+elseif _G.bit32 then
+  _G.bit = _G.bit32
+else
+  local f = load([[
+  _G.bit = {}
+  _G.bit.bor    = function (a,b) return a|b  end
+  _G.bit.band   = function (a,b) return a&b  end
+  _G.bit.rshift = function (a,n) return a>>n end
+  ]])
+  f()
+end
 
 local schar = string.char
 
@@ -15,7 +26,7 @@ print("lao example script")
 --this is done when requiring, but can still be used if you need to restart the environment
 
 -- Setup for default driver
-driverid = ao.driverId("wav")
+default_driver = ao.defaultDriverId()
 format = {
   bits = 16;
   channels = 2;
@@ -24,7 +35,7 @@ format = {
 }
 
 -- Open driver
-device = ao.openFile(driverid, "boop.wav", false, format)
+device = ao.openLive(default_driver, format)
 if not device then
   error("Error opening device.")
 end

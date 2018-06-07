@@ -1,25 +1,25 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "ao"
-version = "1.0.0-1"
+version = "1.1.0-0"
 -- LuaDist source
 source = {
-  tag = "1.0.0-1",
+  tag = "1.1.0-0",
   url = "git://github.com/LuaDist-testing/ao.git"
 }
 -- Original source
 -- source = {
 --   url = "git://github.com/TheLinx/lao.git",
---   branch = "1.0.0",
+--   tag = "1.1.0",
 -- }
 description = {
-  summary = "A library for audio output through Lua",
+  summary  = "A library for audio output through Lua",
   detailed = [[
-     Bindings for Libao, which is a cross-platform audio library that allows
-     programs to output audio using a simple API.
+     Bindings for Libao, which is a cross-platform audio library
+     that allows programs to output audio using a simple API.
   ]],
   homepage = "http://github.com/TheLinx/lao",
-  license = "CC0",
+  license  = "CC0",
 }
 dependencies = {
   "lua >= 5.1"
@@ -33,10 +33,10 @@ build = {
   type = "builtin",
   modules = {
     ao = {
-      sources = {"src/lao.c"},
+      sources   = {"src/lao.c"},
       libraries = {"ao"},
-      incdirs = {"$(LIBAO_INCDIR)"},
-      libdirs = {"$(LIBAO_LIBDIR)"},
+      incdirs   = {"$(LIBAO_INCDIR)"},
+      libdirs   = {"$(LIBAO_LIBDIR)"},
     }
   }
 }
